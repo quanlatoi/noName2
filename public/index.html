@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <style type='text/css'>
+      .textArea{
+        overflow: hidden scroll;
+        overflow-wrap: break-word;
+        resize: none;
+        height: 80px;
+      }
+      .input-file {
+        position: relative; 
+        overflow: hidden;
+        display: inline-block;
+      }
+      .input-btn, .file-info{
+        color: gray;
+        font-size: 15px;
+        font-weight: 600;
+        position: absolute;
+        left: 15px;
+        top: 30px;
+      }
+      .file-info{
+        left: 140px;
+        top: 48px;
+      }
+      .input-file input[type="file"]{
+        position: absolute;
+        left: 0;
+        top: 30px;
+        opacity: 0;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <title>App</title>
+  </head>
+  <body>
+    <script src="../src/bootstrap.min.js"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+  <script>
+    $(document).ready(()=>{
+      $(window).scroll(function(event){
+        if($('html, body').scrollTop()>= 50){
+          $('#scroll').addClass('sticky-top')
+        }
+        else if($('html, body').scrollTop() <= 50){
+          $('#scroll').removeClass('sticky-top')
+        }
+      });
+    });
+  </script>
+</html>
