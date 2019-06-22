@@ -6,9 +6,11 @@ class Navbar extends React.Component{
         super(props);
         
         this.state = {
-            clicked : false
+            clicked : false,
+            test: ''
         }
         this.showAddPicture = this.showAddPicture.bind(this)
+        this.a = this.a.bind(this)
     }
 
     showAddPicture(){
@@ -17,11 +19,14 @@ class Navbar extends React.Component{
         }))
     }
     
+    a = (data)=>{
+        this.setState({test: data})
+    }
+    
     render(){
         const {clicked} = this.state;
         // console.log(clicked)
-        const showForm = this.state.clicked?<Form /> : null
-        // console.log(this.props)
+        const showForm = clicked?<Form test={this.a}/> : null
         return(
             <div id='scroll'>
                 <nav className='navbar navbar-expand-lg navbar-bg bg-light'>
@@ -40,8 +45,8 @@ class Navbar extends React.Component{
                         </ul>
                     </div>
                 </nav>
-                <div className='a'>
-                    {showForm}
+                <div className='bg-white p-5'>
+                    {showForm }
                 </div>
             </div>
         )

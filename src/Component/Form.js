@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Navbar from './NavBar';
 
 class Form extends React.Component{
     constructor(props){
@@ -14,12 +15,12 @@ class Form extends React.Component{
         this.onChangeFile = this.onTodo.ChangeFile.bind(this);
         this.onChangeText = this.onTodo.ChangeTitle.bind(this);
         this.onChangeDes = this.onTodo.ChangeDescript.bind(this);
+        this.onChangeDate = this.onTodo.ChangeDate.bind(this);
     }
     
     onTodo = {
         ChangeFile(e) {
             this.setState({file : e.target.files[0]});
-            console.log(e)
             const name = e.target.value.split(/\\|\//).pop();
             this.text = (name.length > 10)? '... '+name.substr(name.length - 20) : name;
         },
@@ -28,6 +29,9 @@ class Form extends React.Component{
         },
         ChangeDescript(e) {
             this.setState({descript: e.target.value});
+        },
+        ChangeDate(e){
+            this.setState({dates: e.target.value});
         }
     }
 
@@ -37,6 +41,7 @@ class Form extends React.Component{
         formData.append('myImage',this.state.file);
         formData.append('myTitle',this.state.title);
         formData.append('myDescript',this.state.descript);
+        formData.append('myDate', this.state.dates)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -70,7 +75,7 @@ class Form extends React.Component{
                 </div>
                 <div className='form-group col'>
                     <label>Date</label>
-                    <input className="form-control" type='date'/>
+                    <input className="form-control" type='date' onChange={this.onChangeDate}/>
                 </div>
             </div>
             <button className='btn btn-primary' type="submit">Upload</button>

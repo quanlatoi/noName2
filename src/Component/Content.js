@@ -11,7 +11,7 @@ class Content extends React.Component{
     }
 
     componentDidMount(){
-        Axios.get(`https://localhost:3000/picture`)
+        Axios.get(`http://localhost:3000/picture`)
         .then((res)=>{
             const picture =  res.data;
             this.setState({ picture });
