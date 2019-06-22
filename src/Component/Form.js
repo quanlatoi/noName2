@@ -1,6 +1,5 @@
 import React from 'react';
 import Axios from 'axios';
-import Navbar from './NavBar';
 
 class Form extends React.Component{
     constructor(props){
@@ -10,9 +9,9 @@ class Form extends React.Component{
             myTitle: null,
             myDesc: null,
             myFile: null,
-            myDate: null
+            myDate: null,
+            data: ''
         }
-
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -43,46 +42,46 @@ class Form extends React.Component{
         formData.append('myTitle',this.state.myTitle);
         formData.append('myDescript',this.state.myDesc);
         formData.append('myDate', this.state.myDate)
-
-        console.log(this.state)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         };
         console.log(config);
+
         Axios.post(`http://localhost:3000/picture/upload`, formData )
         .then((res)=>{
-            let mgs = res.data;
-            console.log(mgs)
+            this.setState({data: res.data});
+            this.props.onHandleData(this.state.data);
         })
     }
 
     render(){
         return (
-            <form onSubmit={this.onFormSubmit}>
-            <div className='form-group'>
-                <label>Title</label>
-                <input className="form-control" type='text' name="myTitle" onChange= {this.handleChange}/>
-            </div>
-            <div className='form-group'>
-                <label>Describe</label>
-                <textarea className="form-control textArea" name='myDesc' onChange= {this.handleChange} ></textarea>
-            </div>
-            <div className='row'>
-                <div className='form-group col input-file'>
-                    <label >File</label>
-                    <input className='btn input-btn' type='button' value='Choose File' />
-                    <input className="form-control file" type="file" name="myFile" onChange= {this.handleChange} />
-                    <label className='file-info'>{this.text}</label>
+            <form className='bg-white p-5 pt-15' onSubmit={this.onFormSubmit}>
+                <div className='form-group'>
+                    <label>Title</label>
+                    <input className="form-control" type='text' name="myTitle" onChange= {this.handleChange}/>
                 </div>
-                <div className='form-group col'>
-                    <label>Date</label>
-                    <input className="form-control" type='date' name='myDate' onChange={this.handleChange}/>
+                <div className='form-group'>
+                    <label>Describe</label>
+                    <textarea className="form-control textArea" name='myDesc' onChange= {this.handleChange} ></textarea>
                 </div>
-            </div>
-            <button className='btn btn-primary' type="submit">Upload</button>
-        </form>)
+                <div className='row'>
+                    <div className='form-group col input-file'>
+                        <label >File</label>
+                        <input className='btn input-btn' type='button' value='Choose File' />
+                        <input className="form-control file" type="file" name="myFile" onChange= {this.handleChange} />
+                        <label className='file-info'>{this.text}</label>
+                    </div>
+                    <div className='form-group col'>
+                        <label>Date</label>
+                        <input className="form-control" type='date' name='myDate' onChange={this.handleChange}/>
+                    </div>
+                </div>
+                <button className='btn btn-primary' type="submit" >Upload</button>
+            </form>
+        )
     }
 }
 
