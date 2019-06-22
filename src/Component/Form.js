@@ -5,43 +5,46 @@ import Navbar from './NavBar';
 class Form extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            title: null,
-            descript: null,
-            file: null,
-        }
         const text ='';
+        this.state = {
+            myTitle: null,
+            myDesc: null,
+            myFile: null,
+            myDate: null
+        }
+
         this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.onChangeFile = this.onTodo.ChangeFile.bind(this);
-        this.onChangeText = this.onTodo.ChangeTitle.bind(this);
-        this.onChangeDes = this.onTodo.ChangeDescript.bind(this);
-        this.onChangeDate = this.onTodo.ChangeDate.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     
-    onTodo = {
-        ChangeFile(e) {
-            this.setState({file : e.target.files[0]});
+    handleChange(e){
+        const target = e.target;
+        const name = target.name;
+        let value = '';
+
+        if(target.type === 'file'){
+            value = target.files[0];
             const name = e.target.value.split(/\\|\//).pop();
             this.text = (name.length > 10)? '... '+name.substr(name.length - 20) : name;
-        },
-        ChangeTitle(e) {
-            this.setState({title : e.target.value});
-        },
-        ChangeDescript(e) {
-            this.setState({descript: e.target.value});
-        },
-        ChangeDate(e){
-            this.setState({dates: e.target.value});
         }
+        else{
+            value = target.value;
+        }
+
+        this.setState({
+            [name] : value
+        })
     }
 
     onFormSubmit(e){
         e.preventDefault();
         const formData = new FormData();
-        formData.append('myImage',this.state.file);
-        formData.append('myTitle',this.state.title);
-        formData.append('myDescript',this.state.descript);
-        formData.append('myDate', this.state.dates)
+        formData.append('myImage',this.state.myFile);
+        formData.append('myTitle',this.state.myTitle);
+        formData.append('myDescript',this.state.myDesc);
+        formData.append('myDate', this.state.myDate)
+
+        console.log(this.state)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -60,22 +63,22 @@ class Form extends React.Component{
             <form onSubmit={this.onFormSubmit}>
             <div className='form-group'>
                 <label>Title</label>
-                <input className="form-control" type='text' name="myTitle" onChange= {this.onChangeText}/>
+                <input className="form-control" type='text' name="myTitle" onChange= {this.handleChange}/>
             </div>
             <div className='form-group'>
                 <label>Describe</label>
-                <textarea className="form-control textArea" onChange= {this.onChangeDes}></textarea>
+                <textarea className="form-control textArea" name='myDesc' onChange= {this.handleChange} ></textarea>
             </div>
             <div className='row'>
                 <div className='form-group col input-file'>
                     <label >File</label>
                     <input className='btn input-btn' type='button' value='Choose File' />
-                    <input className="form-control file" type="file" name="myImage" onChange= {this.onChangeFile} />
+                    <input className="form-control file" type="file" name="myFile" onChange= {this.handleChange} />
                     <label className='file-info'>{this.text}</label>
                 </div>
                 <div className='form-group col'>
                     <label>Date</label>
-                    <input className="form-control" type='date' onChange={this.onChangeDate}/>
+                    <input className="form-control" type='date' name='myDate' onChange={this.handleChange}/>
                 </div>
             </div>
             <button className='btn btn-primary' type="submit">Upload</button>
