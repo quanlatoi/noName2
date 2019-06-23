@@ -12,9 +12,16 @@ class Content extends React.Component{
             )}
         );
         
+        const style = this.props.isClicked? 'col-8 ' : 'col-12'
+
         return (
             <div className='row'>
-                { elmItem }
+                <div className='col-4'>
+                    { this.props.form }
+                </div>
+                <div className={`row ${style}`}>
+                    { elmItem }
+                </div>
             </div>
         )
     }

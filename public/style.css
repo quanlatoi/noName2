@@ -1,3 +1,47 @@
 .pt-15{
     padding-top: 0.25rem !important;
 }
+
+.textArea{
+    overflow: hidden scroll;
+    overflow-wrap: break-word;
+    resize: none;
+    height: 80px;
+  }
+.input-file {
+    position: relative; 
+    overflow: hidden;
+    display: inline-block;
+}
+.input-btn, .file-info{
+    color: gray;
+    font-size: 15px;
+    font-weight: 600;
+    position: absolute;
+    left: 15px;
+    top: 30px;
+}
+.wrap-input{
+    padding-bottom: 5px;
+    height: 100px;
+}
+.pl-15{
+    padding-left: 15px;
+    padding-right: 0;
+}
+.no-padding{
+    padding: 0 !important;
+}
+.p-15r{
+    padding: .375rem 0;
+}
+.file-info{
+    left: 15px;
+    top: 65px;
+}
+.input-file input[type="file"]{
+    position: absolute;
+    left: 0;
+    top: 30px;
+    opacity: 0;
+}

@@ -10,7 +10,7 @@ class App extends React.Component{
         super();
         this.state = {
             pictures: [],
-            isClicked : null,
+            isClicked : false,
             data: []
         }
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -29,13 +29,24 @@ class App extends React.Component{
     }
 
     handleData = (data) => {
-        this.setState({data: data});
+        const { pictures } = this.state;
+        pictures.push(data);
+        this.setState({pictures : pictures});
+    }
+
+    onCloseForm = () => {
+        this.setState({
+            isClicked: false
+        })
     }
 
     render() {
         const { pictures, isClicked, data} = this.state;
-        const form = isClicked ? <Form onHandleData = { this.handleData }/> : null;
-        console.log(data);
+        const form = isClicked ? <Form
+                                    onHandleData = { this.handleData }
+                                    onCloseForm = { this.onCloseForm }
+                                />
+                                : null;
         
         return (
             <div>
@@ -46,11 +57,13 @@ class App extends React.Component{
                 </div>
                 
                  <div className='container-fluid'>
-                    { form }
                     <Content 
                         pictures={ pictures }
                         data={ data }
+                        isClicked= { isClicked }
+                        form = { form }
                     />
+                    
                 </div>
             </div>
         )
