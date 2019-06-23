@@ -24,17 +24,18 @@ class App extends React.Component{
         })
     }
 
-    handleClick = (value) => {
-        this.setState({isClicked : !value});
+    handleClick = () => {
+        this.setState({isClicked : !this.state.isClicked});
     }
 
     handleData = (data) => {
-        this.state.pictures.push(data);
+        this.setState({data: data});
     }
 
     render() {
-        const { pictures, isClicked, data } = this.state;
+        const { pictures, isClicked, data} = this.state;
         const form = isClicked ? <Form onHandleData = { this.handleData }/> : null;
+        console.log(data);
         
         return (
             <div>

@@ -4,7 +4,6 @@ import Axios from 'axios';
 class Form extends React.Component{
     constructor(props){
         super(props);
-        const text ='';
         this.state = {
             myTitle: null,
             myDesc: null,
@@ -24,7 +23,7 @@ class Form extends React.Component{
         if(target.type === 'file'){
             value = target.files[0];
             const name = e.target.value.split(/\\|\//).pop();
-            this.text = (name.length > 10)? '... '+name.substr(name.length - 20) : name;
+            this.text = (name.length > 10)? '... '+name.substr(name.length - 20) : name;    
         }
         else{
             value = target.value;
@@ -61,7 +60,8 @@ class Form extends React.Component{
             <form className='bg-white p-5 pt-15' onSubmit={this.onFormSubmit}>
                 <div className='form-group'>
                     <label>Title</label>
-                    <input className="form-control" type='text' name="myTitle" onChange= {this.handleChange}/>
+                    <input className="form-control" type='text' name="myTitle" onChange= {this.handleChange} value='abc' />
+                    
                 </div>
                 <div className='form-group'>
                     <label>Describe</label>

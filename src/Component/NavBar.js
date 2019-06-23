@@ -4,17 +4,27 @@ class Navbar extends React.Component{
     constructor(props){
         super(props);
         
-        this.state = {
-            clicked: false
-        }
+            this.state = {
+            dateTime: null
+        };
+        setInterval(
+            () => {
+                let now = new Date();
+                const ts = new Date('2019-04-10T00:00:00');
+                const resultTime = now - ts;
+                let count = Math.floor(resultTime / (1000 * 60 * 60 * 24)) > 0 ? Math.floor((resultTime / (1000 * 60 * 60 * 24))) + ' day ' + Math.floor((resultTime / (1000 * 60 * 60)) % 24) + " : " + Math.floor((resultTime / (1000 * 60)) % 60) + " : " + Math.floor((resultTime / 1000) % 60) : Math.floor((resultTime / (1000 * 60 * 60)) % 24) + " hour " + Math.floor((resultTime / (1000 * 60)) % 60) + " min " + Math.floor((resultTime / 1000) % 60) + " sec";
+                this.setState({ dateTime: count })
+                
+            },1000
+        )
     }
 
     handleClicked = () => {
-        this.setState({clicked: !this.state.clicked});
-        this.props.onHandleClicked(this.state.clicked);
+        this.props.onHandleClicked();
     }
-    
+
     render(){
+        const { dateTime } = this.state;
         return(
             <nav className='navbar navbar-expand-lg navbar-bg bg-light'>
                 <a className='navbar-brand' href='http://localhost:2000'>Logo</a>
@@ -27,9 +37,12 @@ class Navbar extends React.Component{
                             <a className='nav-link' href='http://localhost:2000'>Home</a>
                         </li>
                         <li className='nav-item active'>
-                            <a className='nav-link' href='#' onClick={this.handleClicked}>Add Picture</a>
+                            <a className='nav-link' href="#" onClick={this.handleClicked}>Add Picture</a>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    <p>Count Time: { dateTime }</p>
                 </div>
             </nav>
         )

@@ -8,9 +8,10 @@ class Content extends React.Component{
         let elmItem = pictures.map(
             (picture, index)=>{
                 return (
-                  <TaskItem key={index} picture= { picture }/>
+                  <TaskItem key={index} picture= { picture } />
             )}
         );
+        
         return (
             <div className='row'>
                 { elmItem }
