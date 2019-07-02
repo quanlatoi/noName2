@@ -71,7 +71,7 @@ class Form extends React.Component{
         this.props.onCloseForm();
     }
 
-    render(){
+    render(){        
         return (
             <form className='bg-white p-5 pt-15' onSubmit={this.onFormSubmit}>
                 <div className='form-group'>

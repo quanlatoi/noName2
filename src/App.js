@@ -45,8 +45,7 @@ class App extends React.Component{
         const form = isClicked ? <Form
                                     onHandleData = { this.handleData }
                                     onCloseForm = { this.onCloseForm }
-                                />
-                                : null;
+                                />: null;
         
         return (
             <div>
