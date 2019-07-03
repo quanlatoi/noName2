@@ -11,8 +11,10 @@ class Controll extends Component{
             <Router>
                 <Menu />
                 <Switch>
+                    {/*login page */}
+                    <Route path='/login' component={Login} />
+                    {/* home page */}
                     <Route path='/' component={App}  />
-                    <Route path='/login' component={Login}  />
                 </Switch>
             </Router>
         )

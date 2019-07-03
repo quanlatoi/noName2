@@ -8,11 +8,6 @@ const listMenu = [
         exact: true
     },
     {
-        name: 'Picture',
-        to: '/picture',
-        exact: false
-    },
-    {
         name: 'Login',
         to: '/login',
         exact: false
