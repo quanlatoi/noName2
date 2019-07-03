@@ -49,11 +49,11 @@ class App extends React.Component{
         
         return (
             <div>
-                {/* <div id='scroll'>
+                <div id='scroll'>
                     <Navbar 
                         onHandleClicked= { this.handleClick }
                     />
-                </div> */}
+                </div>
                 
                  <div className='container-fluid'>
                     <Content 
