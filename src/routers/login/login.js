@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { type } from 'os';
-import { async } from 'q';
-import { switchCase } from '@babel/types';
+
+import Authenticate from '../authenticate';
 
 class Login extends Component{
     constructor(props){
@@ -14,7 +13,7 @@ class Login extends Component{
         }
     }
 
-    onChange = (e)=>{
+    onChange = (e) => {
         const target = e.target;
         const name = target.name;
         this.setState({
@@ -22,7 +21,7 @@ class Login extends Component{
         })
     }
 
-    onSubmit = async (e)=>{
+    onSubmit = async (e) => {
         try{
             e.preventDefault();
             const data = {
@@ -31,8 +30,9 @@ class Login extends Component{
             }
             const res = await Axios.post('http://localhost:3000/api/login', data )
             if(res.data.token !== undefined){
-                localStorage.setItem('token', `bearer ${res.data.token}`);
-                this.props.history.push('/')
+                localStorage.setItem('token', JSON.stringify(res.data.token));
+                Authenticate.login();
+                this.props.history.push('/');
             }else{
                 this.setState({
                     err: res.data.errors[0].mgs
@@ -46,6 +46,7 @@ class Login extends Component{
 
     render(){
         let {err} = this.state;
+        console.log(this.props)
         return(
             <form onSubmit={this.onSubmit}>
                 {err}

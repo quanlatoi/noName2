@@ -1,9 +1,10 @@
 import React from 'react';
-import Axios from 'axios';
 
-import Navbar from './Component/NavBar'
+import callAPI from './util/callAPI';
+import Navbar from './Component/NavBar';
 import Content from './Component/Content';
 import Form from './Component/Form';
+import Authenticate from './routers/authenticate';
 
 class App extends React.Component{
     constructor(props){
@@ -16,12 +17,14 @@ class App extends React.Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
-    componentDidMount(){
-        Axios.get(`http://localhost:3000/picture`)
-        .then((res)=>{
-            const picture =  res.data;
-            this.setState({ pictures: picture });
+    async componentDidMount(){
+        const jwt = JSON.parse(localStorage.getItem('token'));
+        const res = await callAPI('picture', 'GET', {
+            Authorization: `Bearer ${jwt}`
         })
+        const picture =  res.data;
+        this.setState({ pictures: picture });
+        
     }
 
     handleClick = () => {
@@ -54,8 +57,8 @@ class App extends React.Component{
                         onHandleClicked= { this.handleClick }
                     />
                 </div>
-                
-                 <div className='container-fluid'>
+                <button onClick={()=>{Authenticate.logout(); this.props.history.push('/'); console.log(this.props)}}>logout</button>
+                <div className='container-fluid'>
                     <Content 
                         pictures={ pictures }
                         data={ data }
