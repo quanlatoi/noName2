@@ -3,11 +3,11 @@ import React from 'react';
 class Navbar extends React.Component{
     constructor(props){
         super(props);
-        
             this.state = {
             countTime: ''
         };
-        setInterval(
+        this.componentWillUnmount = this.componentWillUnmount.bind(this);
+        this.timer = setInterval(
             () => {
                 let now = new Date();
                 const ts = new Date('2019-04-10T00:00:00');
@@ -17,6 +17,10 @@ class Navbar extends React.Component{
                 
             },1000
         )
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.timer);
     }
 
     handleClicked = () => {

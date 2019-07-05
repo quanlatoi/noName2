@@ -9,7 +9,6 @@ class Login extends Component{
         this.state = {
             userName: '',
             password: '',
-            err: ''
         }
     }
 
@@ -29,7 +28,9 @@ class Login extends Component{
                 password: this.state.password
             }
             const res = await Axios.post('http://localhost:3000/api/login', data )
+            console.log(res)
             if(res.data.token !== undefined){
+                localStorage.setItem('profile', JSON.stringify(res.data.body.user));
                 localStorage.setItem('token', JSON.stringify(res.data.token));
                 Authenticate.login();
                 this.props.history.push('/');
@@ -46,7 +47,6 @@ class Login extends Component{
 
     render(){
         let {err} = this.state;
-        console.log(this.props)
         return(
             <form onSubmit={this.onSubmit}>
                 {err}
