@@ -30,6 +30,10 @@
     padding-bottom: 5px;
     height: 100px;
 }
+.no-margin{
+    margin: 0 !important;
+}
+
 .pl-15{
     padding-left: 15px;
     padding-right: 0;
@@ -37,9 +41,12 @@
 .no-padding{
     padding: 0 !important;
 }
+
 .p-15r{
     padding: .375rem 0;
 }
+
+
 .file-info{
     left: 15px;
     top: 65px;
@@ -95,7 +102,7 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding: 50px 65px 40px;
+    padding: 50px 65px 460px !important;
 }
 .form-group{
     position: relative;
@@ -107,7 +114,7 @@
     top: 0px;
     font-size: 18px;
     color: #7e7e7e;
-    font-size: 1.5rem
+    font-size: 1.5rem;
 }
 .form-group .form-control{
     display: block;
@@ -134,5 +141,32 @@
 
 .title{
     font-weight: bold;
-    font-size: 2rem
+    font-size: 2rem;
+}
+
+.bg-pink{
+    background-color: pink !important;
+}
+
+.bg-opacity{
+    opacity: .8;
+}
+
+.bg-form{
+    background: #fff;
+    width: auto;
+    opacity: .9;
+}
+
+.form-group a{
+    text-decoration: none;
+    color: #007bff;
+}
+
+.form-group a:hover{
+    color: #0056b3;
+}
+
+.footer{
+    height: 20px;
 }
