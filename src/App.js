@@ -19,7 +19,7 @@ class App extends React.Component{
 
     async componentDidMount(){
         const jwt = JSON.parse(localStorage.getItem('token'));
-        const res = await callAPI('picture', 'GET', {
+        const res = await callAPI('picture', 'GET', {}, {
             Authorization: `Bearer ${jwt}`
         })
         const picture =  res.data;
