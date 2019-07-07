@@ -50,9 +50,7 @@ class Login extends Component{
             })
             this.closeAlert();
             return;
-        }
-        console.log('a');
-        
+        }        
         try{
             const user = {
                 userName: this.state.userName,

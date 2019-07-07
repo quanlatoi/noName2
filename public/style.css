@@ -46,6 +46,9 @@
     padding: .375rem 0;
 }
 
+.p-16{
+    padding: .5rem 1rem 0 1rem;
+}
 
 .file-info{
     left: 15px;
@@ -169,4 +172,150 @@
 
 .footer{
     height: 20px;
+}
+
+.clock {
+    border-radius: 50%;
+    background: #fff url(ios_clock.svg) no-repeat center;
+    background-size: 96%;
+    height: 5em;
+    width: 5em;
+    padding-bottom: 31%;
+    position: relative;
+}
+
+.clock.simple:after {
+    background: #000;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5%;
+    height: 5%;
+    z-index: 10;
+}
+
+.day-container,
+.minutes-container,
+.hours-container,
+.seconds-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+  
+.hours {
+    background: red;
+    height: 25%;
+    left: 47.75%;
+    position: absolute;
+    top: 25%;
+    transform-origin: 50% 100%;
+    width: 2.5%;
+}
+
+.minutes {
+    background: red;
+    height: 35%;
+    left: 49%;
+    position: absolute;
+    top: 16%;
+    transform-origin: 50% 100%;
+    width: 2%;
+}
+
+.seconds {
+    background: blue;
+    height: 45%;
+    left: 49.5%;
+    position: absolute;
+    top: 14%;
+    transform-origin: 50% 80%;
+    width: 1%;
+    z-index: 8;
+}
+
+.day {
+    font-size: 10px;
+    color: #000;
+    left: 50%;
+    position: absolute;
+    top: 65%;
+    transform : translate(-50%, -50%);
+}
+  
+@keyframes rotate {
+    100% {
+      transform: rotateZ(360deg);
+    }
+}
+
+.btn-utilities{
+    border-radius: 7px;
+    overflow: hidden;
+    display: block;
+    padding: 16px 20px;
+    position: relative;
+}
+
+.btn-utilities::before{
+    content: "";
+    border: solid #007bff;
+    border-width: 0 5px 5px 0;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 20px;
+    bottom: 10px;
+    transform: rotate(45deg);
+}
+
+.btn-utilities:hover::before{
+    content: "";
+    border: solid #0056b3;
+    cursor: pointer;
+    border-width: 0 5px 5px 0;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 20px;
+    bottom: 10px;
+    transform: rotate(45deg);
+}
+
+.isactive::before{
+    content: "";
+    border: solid #0056b3;
+    border-width: 0 5px 5px 0;
+}
+
+.show-menu{
+    display: block;
+}
+
+.item{
+    margin: 5px;
+    padding: 2px 30px;
+    color: #1d2129;
+    display: block;
+}
+
+.item-hover{
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-logout{
+    margin: 0 5px;
+}
+
+.separator{
+    border-bottom: 1px solid #e9ebee;
+    margin: 5px 7px 6px;
+    padding: 1px 0 0 0;
 }

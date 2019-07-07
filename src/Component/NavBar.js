@@ -1,36 +1,53 @@
 import React from 'react';
 
+import Clock from './clock';
+
 class Navbar extends React.Component{
-    constructor(props){
-        super(props);
-            this.state = {
-            countTime: ''
-        };
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
-        this.timer = setInterval(
-            () => {
-                let now = new Date();
-                const ts = new Date('2019-04-10T00:00:00');
-                const resultTime = now - ts;
-                let count = Math.floor(resultTime / (1000 * 60 * 60 * 24)) > 0 ? Math.floor((resultTime / (1000 * 60 * 60 * 24))) + ' day ' + Math.floor((resultTime / (1000 * 60 * 60)) % 24) + " : " + Math.floor((resultTime / (1000 * 60)) % 60) + " : " + Math.floor((resultTime / 1000) % 60) : Math.floor((resultTime / (1000 * 60 * 60)) % 24) + " hour " + Math.floor((resultTime / (1000 * 60)) % 60) + " min " + Math.floor((resultTime / 1000) % 60) + " sec";
-                this.setState({ countTime: 'Count Time: ' + count })
-                
-            },1000
-        )
+    state = {
+        isShowMenu: false,
+        isHover: false
     }
-
-    componentWillUnmount(){
-        clearInterval(this.timer);
-    }
-
     handleClicked = () => {
         this.props.onHandleClicked();
     }
 
+    onLogout = ()=>{
+        this.props.onLogout();
+    }
+
+    showMenu = ()=>{
+        this.setState({
+            isShowMenu: !this.state.isShowMenu
+        })
+    }
+
+    mouseEnter = ()=>{
+        this.setState({
+            isHover: !this.state.isHover
+        })
+    }
+
+    mouseLeave = ()=>{
+        this.setState({
+            isHover: !this.state.isHover
+        })
+    }
+
     render(){
-        const { countTime } = this.state;
+        const { isShowMenu, isHover } = this.state;
+        const classNames = [];
+        if(isShowMenu){
+            classNames.push('isactive');
+            classNames.push('show-menu');
+            if(isHover){
+                classNames.push('item-hover ')
+            }
+        }
+        else{
+            classNames.pop()
+        }
         return(
-            <nav className='navbar navbar-expand-lg navbar-bg bg-light'>
+            <nav className='p-16 navbar navbar-expand-lg navbar-bg bg-light'>
                 <a className='navbar-brand' href='http://localhost:2000'>Logo</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -45,8 +62,23 @@ class Navbar extends React.Component{
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <p>{ countTime }</p>
+                <div className='dropdown'>
+                    <div className={`${typeof classNames[0] === 'undefined'? '' : classNames[0]} btn-utilities`} onClick={this.showMenu}></div>
+                    <ul className={`${typeof classNames[1] === 'undefined'? '' : classNames[1]} dropdown-menu dropdown-menu-right`}>
+                        <li className='item'>
+                            <Clock />
+                        </li>
+                        <li className='separator item'></li>
+                        <li className={`${typeof classNames[2] === 'undefined'? '' : classNames[2]}item`} 
+                            onMouseEnter={this.mouseEnter}
+                            onMouseLeave={this.mouseLeave}>
+                            <a
+                                onClick={this.onLogout}
+                            >
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         )

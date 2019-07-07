@@ -17,16 +17,5 @@
     <div id="root"></div>
   </body>
   <script src="https://kit.fontawesome.com/d094284576.js"></script>
-  <script>
-    $(document).ready(()=>{
-      $(window).scroll(function(event){
-        if($('html, body').scrollTop()>= 10){
-          $('#scroll').addClass('sticky-top')
-        }
-        else if($('html, body').scrollTop() <= 50){
-          $('#scroll').removeClass('sticky-top')
-        }
-      });
-    });
-  </script>
+  <script>$(document).ready(()=>{$(window).scroll(function(event){if($('html, body').scrollTop()>= 10){$('#scroll').addClass('sticky-top')}else if($('html, body').scrollTop() <= 50){$('#scroll').removeClass('sticky-top')}})})</script>
 </html>

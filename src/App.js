@@ -16,7 +16,6 @@ class App extends React.Component{
         }
         this.componentDidMount = this.componentDidMount.bind(this);
     }
-
     async componentDidMount(){
         const jwt = JSON.parse(localStorage.getItem('token'));
         const res = await callAPI('picture', 'GET', {}, {
@@ -44,21 +43,27 @@ class App extends React.Component{
         })
     }
 
+    onLogout = ()=>{
+        Authenticate.logout();
+        this.props.history.push('/');
+        // console.log(this.props)
+    }
+
     render() {
         const { pictures, isClicked, data} = this.state;
         const form = isClicked ? <Form
                                     onHandleData = { this.handleData }
                                     onCloseForm = { this.onCloseForm }
                                 />: null;
-        
+
         return (
             <div>
                 <div id='scroll'>
                     <Navbar 
                         onHandleClicked= { this.handleClick }
+                        onLogout = { this.onLogout }
                     />
                 </div>
-                <button onClick={()=>{Authenticate.logout(); this.props.history.push('/'); console.log(this.props)}}>logout</button>
                 <div className='container-fluid'>
                     <Content 
                         pictures={ pictures }
