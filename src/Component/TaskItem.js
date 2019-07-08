@@ -8,6 +8,7 @@ class TaskItem extends Component{
                 <div className='card'>
                     <img className='card-img-top' alt="" src={`http://localhost:3000/${picture.image}`} height='100px' width='200px'/>
                     <div className='card-body'>
+                    <div className='separator'></div>
                     <h5>{ picture.title }</h5>
                     <p className='card-text'>{ picture.date}</p>
                     <p className='card-text'>{ picture.descript}</p>

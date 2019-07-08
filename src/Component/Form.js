@@ -1,5 +1,6 @@
 import React from 'react';
-import Axios from 'axios';
+
+import CallAPI from '../util/callAPI'
 
 class Form extends React.Component{
     constructor(props){
@@ -34,27 +35,28 @@ class Form extends React.Component{
         })
     }
 
-    onFormSubmit(e){
+    async onFormSubmit(e){
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('myImage',this.state.myFile);
-        formData.append('myTitle',this.state.myTitle);
-        formData.append('myDescript',this.state.myDesc);
-        formData.append('myDate', this.state.myDate)
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        console.log(config);
-
-        Axios.post(`http://localhost:3000/picture/upload`, formData )
-        .then((res)=>{
+        try{
+        const formData = {
+            myFile: this.state.myFile,
+            myTitle: this.state.myTitle,
+            myDesc: this.state.myDesc,
+            myDate: this.state.myDate
+        }
+            const res = await CallAPI('upload', 'POST', formData, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            });
             this.setState({data: res.data});
             this.props.onHandleData(this.state.data);
             this.onClearForm();
             this.onCloseForm();
-        })
+        }
+        catch(err){
+            console.log('ERR: ',err)
+        }
     }
 
     onClearForm = () =>{

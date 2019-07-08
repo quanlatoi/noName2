@@ -1,6 +1,6 @@
 class Authenticate {
     constructor(){
-        this.authenticated = false;
+        this.authenticated = true;
     }
     login(){
         this.authenticated = true;
@@ -9,7 +9,7 @@ class Authenticate {
         this.authenticated = false;
     }
     isAuthenticated(){
-        console.log(this.authenticated)
+        // console.log(this.authenticated)
         return this.authenticated;
     }
 }
