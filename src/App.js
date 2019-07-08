@@ -11,7 +11,7 @@ class App extends React.Component{
         super();
         this.state = {
             pictures: [],
-            isClicked : false,
+            isClicked : true,
             valueTag : '',
             data: []
         }
@@ -82,11 +82,7 @@ class App extends React.Component{
                     />
                 </div>
                 <div className='container-fluid'>
-                    <Content 
-                        pictures= { pictures }
-                        data= { data }
-                    />
-                    <div className={`modal my-modal${classNames}`}>
+                    <div className={`my-modal${classNames}`}>
                         <div className='wrap-content'>
                             <span className="close" onClick={this.closeModal}>&times;</span>
                             <div className='modal-content my-modal-content' >
@@ -94,6 +90,11 @@ class App extends React.Component{
                             </div>
                         </div>
                     </div>
+                    <Content 
+                        pictures= { pictures }
+                        data= { data }>
+                    </Content>
+                    
                 </div>
             </div>
         )

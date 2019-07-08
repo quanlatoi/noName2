@@ -321,35 +321,46 @@
 }
 
 .show-my-modal{
-    display: block;
+    display: block !important;
 }
 
 .my-modal{
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
 }
 
 .wrap-content{
+    overflow: hidden;
+    width: 600px;
+    border-radius: 5px;
+    background: rgb(255, 255, 255);
+    margin: 50px auto;
+    padding: 0;
+    border: 1px solid #888;
     position: relative;
 }
 
 .my-modal-content{
-    margin: 8% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    z-index: 1000;
+    overflow: auto;
 }
 
 .close {
-    margin: 10px;
+    margin: 2px 8px;
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
     position: absolute;
     top: 0px;
-    right: 200px;
+    right: 0px;
     z-index: 100000;
 }
   
