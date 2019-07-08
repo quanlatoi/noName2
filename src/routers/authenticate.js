@@ -7,7 +7,6 @@ class Authenticate {
     }
     logout(){
         this.authenticated = false;
-        // this.isAuthenticated();
     }
     isAuthenticated(){
         console.log(this.authenticated)
