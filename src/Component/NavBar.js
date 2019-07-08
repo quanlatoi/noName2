@@ -7,8 +7,8 @@ class Navbar extends React.Component{
         isShowMenu: false,
         isHover: false
     }
-    handleClicked = () => {
-        this.props.onHandleClicked();
+    handleClicked = (e) => {
+        this.props.onHandleClicked(e);
     }
 
     onLogout = ()=>{
@@ -47,7 +47,7 @@ class Navbar extends React.Component{
             classNames.pop()
         }
         return(
-            <nav className='p-16 navbar navbar-expand-lg navbar-bg bg-light'>
+            <nav className='p-16 navbar navbar-expand-lg navbar-bg bg-pink'>
                 <a className='navbar-brand' href='http://localhost:2000'>Logo</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

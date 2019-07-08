@@ -11,15 +11,10 @@ class Content extends React.Component{
                   <TaskItem key={index} picture= { picture } />
             )}
         );
-        
-        const style = this.props.isClicked? 'col-8 ' : 'col-12'
 
         return (
             <div className='row'>
-                <div className='col-4'>
-                    { this.props.form }
-                </div>
-                <div className={`row ${style}`}>
+                <div className={`row`}>
                     { elmItem }
                 </div>
             </div>

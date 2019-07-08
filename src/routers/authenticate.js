@@ -7,6 +7,7 @@ class Authenticate {
     }
     logout(){
         this.authenticated = false;
+        localStorage.clear();
     }
     isAuthenticated(){
         // console.log(this.authenticated)

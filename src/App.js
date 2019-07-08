@@ -12,6 +12,7 @@ class App extends React.Component{
         this.state = {
             pictures: [],
             isClicked : false,
+            valueTag : '',
             data: []
         }
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -27,8 +28,11 @@ class App extends React.Component{
         
     }
 
-    handleClick = () => {
-        this.setState({isClicked : !this.state.isClicked});
+    handleClick = (e) => {
+        this.setState({
+            isClicked : !this.state.isClicked,
+            valueTag : e.target.innerText
+        });
     }
 
     handleData = (data) => {
@@ -49,12 +53,25 @@ class App extends React.Component{
         // console.log(this.props)
     }
 
+    closeModal = (e)=>{
+        this.setState({isClicked : !this.state.isClicked});
+    }
+
+    
+
     render() {
-        const { pictures, isClicked, data} = this.state;
-        const form = isClicked ? <Form
-                                    onHandleData = { this.handleData }
-                                    onCloseForm = { this.onCloseForm }
-                                />: null;
+        const { pictures, isClicked, data, valueTag} = this.state;
+        let form, classNames = '';
+        if(isClicked){
+            classNames= ' show-my-modal'
+            form = <Form onHandleData = { this.handleData }
+                  onCloseForm = { this.onCloseForm }
+                  valueTag = { valueTag }
+            />            
+        }
+        else{
+            form = null;
+        }
 
         return (
             <div>
@@ -66,12 +83,17 @@ class App extends React.Component{
                 </div>
                 <div className='container-fluid'>
                     <Content 
-                        pictures={ pictures }
-                        data={ data }
-                        isClicked= { isClicked }
-                        form = { form }
+                        pictures= { pictures }
+                        data= { data }
                     />
-                    
+                    <div className={`modal my-modal${classNames}`}>
+                        <div className='wrap-content'>
+                            <span className="close" onClick={this.closeModal}>&times;</span>
+                            <div className='modal-content my-modal-content' >
+                                { form }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

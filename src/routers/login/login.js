@@ -103,7 +103,7 @@ class Login extends Component{
                                     <i className="m-2 pr-3 fas fa-user"></i>
                                     <input
                                         type="text"
-                                        className="form-control"
+                                        className="form-control padding-login"
                                         placeholder="Username"
                                         name='userName'
                                         value= {this.state.userName}
@@ -114,10 +114,10 @@ class Login extends Component{
                                 </div>
                                 <div className="form-group">
                                     <div className='d-flex'>
-                                        <i className="m-2 pr-3  fas fa-lock"></i>
+                                        <i className="m-2 pr-3 fas fa-lock"></i>
                                         <input 
                                             type="password"
-                                            className="form-control"
+                                            className="form-control padding-login"
                                             placeholder="Password"
                                             name='password'
                                             value= {this.state.password}
