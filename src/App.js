@@ -14,7 +14,7 @@ class App extends React.Component{
             pictures: [],
             isClicked : true,
             valueTag : '',
-            arrImages: '',
+            previous: ['https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'],
             data: []
         }
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -59,13 +59,28 @@ class App extends React.Component{
 
     getImg = (value)=>{
         let arrImg = [...value];
-        this.setState({
-            arrImages: arrImg
-        }); 
+        arrImg.map(
+            (img) => {
+                const reader = new FileReader();
+                reader.onloadend = ()=>{
+                    const { previous } = this.state;
+                    previous.push(reader.result);
+                    this.setState({
+                        previous: previous
+                    })
+                };
+                return reader.readAsDataURL(img);
+            }
+        )
+    }
+
+    removeImg = ()=>{
+        const { previous } = this.state;
+        console.log(previous)
     }
 
     render() {
-        const { pictures, isClicked, data, valueTag, arrImages } = this.state;
+        const { pictures, isClicked, data,  valueTag, previous } = this.state;
         let form, classNames = '';
         if(isClicked){
             classNames= ' show-my-modal'
@@ -90,7 +105,7 @@ class App extends React.Component{
                 <div className='container-fluid'>
                     <div className={`my-modal${classNames}`}>
                         <div className='wrap-content'>
-                            <span className="close" onClick={this.closeModal}>&times;</span>
+                            <span className="close-hover close" onClick={this.closeModal}>&times;</span>
                             <div className='modal-content my-modal-content' >                                
                                 <div className='d-flex flex-wrap'>
                                     <div className='col-8'>
@@ -99,9 +114,11 @@ class App extends React.Component{
                                     <div className='col-4 mt-2 pt-5'>
                                         {/* previous */}
                                         <div className='col-6 no-padding d-flex flex-wrap'>
-                                            <PreviousFileUpload>
-                                                { arrImages }
-                                            </PreviousFileUpload>
+                                            {/* <PreviousFileUpload>
+                                                { previous }
+                                                { this.removeImg }
+                                            </PreviousFileUpload> */}
+                                            {PreviousFileUpload(previous)}
                                         </div>
                                     </div>
                                 </div>

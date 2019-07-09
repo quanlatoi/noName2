@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import A from './a'
- // const img = document.createElement('img');
-// img.setAttribute('src', e.target.result)
-// document.querySelector('#wrap-img').appendChild(img);
-class PreviousFileUpload extends Component{
+const PreviousFileUpload = (imgs) => {
+    const previous = [...imgs];
+    console.log(previous)
+    const showIndex = (index) =>{
+        previous.filter((a) => {
+            console.log(a)
+        })
+    }
 
-    render(){
-        let arrImg = [...this.props.children];
-        let q = arrImg.map(
-            (img) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(img);
-                reader.onload = function(e){
-                    console.log(e.target.result)
-                    return <A b={e.target.result} />
-                }
-                return <A b='asd' />
-            }
-        )
-        return(
-            <div id='wrap-img'>
-                {q}
+
+    return previous.map((urlImage, index)=>{
+        return (
+            <div className='d-flex wrap-image' key={index} style={{width: '100px', height: '100px'}}>
+                <img className='' src={urlImage} alt='' style={{width: '100px', height: '100px'}} />
+                <div className='utilities'>
+                    <span className='remove close' onClick={() => showIndex(index)}>
+                        &times;
+                    </span>
+                </div>
             </div>
         )
-    }
+    })
 }
 
 export default PreviousFileUpload;
