@@ -18,7 +18,7 @@
     overflow: hidden;
     display: inline-block;
 }
-.input-btn, .file-info{
+.input-btn{
     color: gray;
     font-size: 15px;
     font-weight: 600;
@@ -50,10 +50,6 @@
     padding: .5rem 1rem 0 1rem;
 }
 
-.file-info{
-    left: 125px;
-    top: 50px;
-}
 .input-file input[type="file"]{
     position: absolute;
     left: 0;
@@ -325,8 +321,8 @@
 }
 
 .my-modal{
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow: auto;
     position: fixed;
     z-index: 1000;
@@ -390,3 +386,13 @@
 .padding-login{
     padding: 20px 40px !important;
 } 
+
+#wrap-img img{
+    height: 90px;
+    width: 90px;
+    margin: .5em;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 7px 7px 15px -7px rgba(0,0,0,0.3);
+    -moz-box-shadow: 7px 7px 15px -7px rgba(0,0,0,0.3);
+    box-shadow: 7px 7px 15px -7px rgba(0,0,0,0.3); 
+}
