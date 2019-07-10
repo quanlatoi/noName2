@@ -65,7 +65,6 @@ class Clock extends Component {
                 <div className='day-container'>
                     <div className='day'>{ countTime }</div>
                 </div>
-                
             </article>
         )
     }

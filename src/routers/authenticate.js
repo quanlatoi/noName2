@@ -1,6 +1,8 @@
+import callAPI from '../util/callAPI'
+
 class Authenticate {
     constructor(){
-        this.authenticated = true;
+        this.authenticated = false;  
     }
     login(){
         this.authenticated = true;
@@ -10,7 +12,18 @@ class Authenticate {
         localStorage.clear();
     }
     isAuthenticated(){
-        // console.log(this.authenticated)
+        const jwt = JSON.parse(localStorage.getItem('token'));
+        console.log(jwt)
+        if(jwt){
+            const a = async () => {
+                const res = await callAPI('login', "POST", {}, {
+                    'authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                });
+                return this.authenticated = res.data.msg;
+            }
+            a();
+        }
         return this.authenticated;
     }
 }

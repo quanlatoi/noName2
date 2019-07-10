@@ -3,9 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Authenticate from './authenticate';
 
-//thang nay luon check
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
+        console.log(Authenticate.isAuthenticated()),
         Authenticate.isAuthenticated()
         ? <Component {...props} />
         : <Redirect to={{
