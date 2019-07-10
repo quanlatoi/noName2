@@ -12,9 +12,9 @@ class App extends React.Component{
         super();
         this.state = {
             pictures: [],
-            isClicked : true,
+            isClicked : false,
             valueTag : '',
-            previous: ['https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'],
+            previous: [],
             data: []
         }
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -74,9 +74,13 @@ class App extends React.Component{
         )
     }
 
-    removeImg = ()=>{
+    removeImg = (index)=>{
+        //we will remove one display image when we click to X icon
         const { previous } = this.state;
-        console.log(previous)
+        previous.splice(index, 1);
+        this.setState({
+            previous: previous
+        });
     }
 
     render() {
@@ -114,11 +118,7 @@ class App extends React.Component{
                                     <div className='col-4 mt-2 pt-5'>
                                         {/* previous */}
                                         <div className='col-6 no-padding d-flex flex-wrap'>
-                                            {/* <PreviousFileUpload>
-                                                { previous }
-                                                { this.removeImg }
-                                            </PreviousFileUpload> */}
-                                            {PreviousFileUpload(previous)}
+                                            { PreviousFileUpload(previous, this.removeImg) }
                                         </div>
                                     </div>
                                 </div>

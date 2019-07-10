@@ -1,14 +1,11 @@
 import React from 'react';
 
-const PreviousFileUpload = (imgs) => {
+export default function PreviousFileUpload(imgs, cb){
     const previous = [...imgs];
-    console.log(previous)
-    const showIndex = (index) =>{
-        previous.filter((a) => {
-            console.log(a)
-        })
-    }
 
+    const showIndex = (index) =>{
+        cb(index)
+    }
 
     return previous.map((urlImage, index)=>{
         return (
@@ -21,7 +18,5 @@ const PreviousFileUpload = (imgs) => {
                 </div>
             </div>
         )
-    })
+    });
 }
-
-export default PreviousFileUpload;

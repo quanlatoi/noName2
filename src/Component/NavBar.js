@@ -8,10 +8,12 @@ class Navbar extends React.Component{
         isHover: false
     }
     handleClicked = (e) => {
+        e.preventDefault();
         this.props.onHandleClicked(e);
     }
 
-    onLogout = ()=>{
+    onLogout = (e)=>{
+        e.preventDefault();
         this.props.onLogout();
     }
 
@@ -58,7 +60,7 @@ class Navbar extends React.Component{
                             <a className='nav-link' href='http://localhost:2000'>Home</a>
                         </li>
                         <li className='nav-item active'>
-                            <a className='nav-link' href="#" onClick={this.handleClicked}>Add Picture</a>
+                            <a href='/' className='nav-link' onClick={this.handleClicked}>Add Picture</a>
                         </li>
                     </ul>
                 </div>
@@ -73,6 +75,7 @@ class Navbar extends React.Component{
                             onMouseEnter={this.mouseEnter}
                             onMouseLeave={this.mouseLeave}>
                             <a
+                                href='/'
                                 onClick={this.onLogout}
                             >
                                 <span>Logout</span>
