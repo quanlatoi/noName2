@@ -14,7 +14,8 @@ class Controll extends Component{
                     {/*login page */}
                     <Route path='/login' component={Login}/>
                     {/* home page */}
-                    <PrivateRoute path='/' component={App} />
+                    <PrivateRoute path='/' component={App} >
+                    </PrivateRoute>
                 </Switch>
             </Router>
         )
