@@ -4,7 +4,6 @@ import callAPI from './util/callAPI';
 import Navbar from './Component/NavBar';
 import Content from './Component/Content';
 import Form from './Component/Form';
-import Authenticate from './routers/authenticate';
 import PreviousFileUpload from './Component/previuosFileUpload';
 
 class App extends React.Component{
@@ -20,13 +19,19 @@ class App extends React.Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
     async componentDidMount(){
-        const jwt = JSON.parse(localStorage.getItem('token'));  
+        const jwt = JSON.parse(localStorage.getItem('token'));
         const res = await callAPI('picture', 'GET', {}, {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json'
         })
-        const picture =  res.data;
-        this.setState({ pictures: picture });
+        if(res.data !== false){
+            const picture =  res.data;
+            this.setState({ pictures: picture });
+        }
+        else{
+            localStorage.clear();
+            this.props.history.push('/');
+        }        
     }
 
     handleClick = (e) => {
@@ -49,7 +54,7 @@ class App extends React.Component{
     }
 
     onLogout = ()=>{
-        Authenticate.logout();
+        localStorage.clear();
         this.props.history.push('/');
     }
 

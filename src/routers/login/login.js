@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Authenticate from '../authenticate';
 import callAPI from '../../util/callAPI';
 
 class Login extends Component{
@@ -61,7 +60,6 @@ class Login extends Component{
             if(res.data.token !== undefined){
                 localStorage.setItem('profile', JSON.stringify(res.data.body.user));
                 localStorage.setItem('token', JSON.stringify(res.data.token));
-                Authenticate.login();
                 this.props.history.push('/');
             }else{
                 this.setState({
