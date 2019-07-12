@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CallAPI from '../util/callAPI'
+import * as action from '../appRedux/actions/index'
 
 class Form extends React.Component{
     constructor(props){
@@ -9,8 +11,7 @@ class Form extends React.Component{
             myTitle: '',
             myDesc: '',
             myFile: null,
-            myDate: '',
-            data: ''
+            myDate: ''
         }
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,9 +23,13 @@ class Form extends React.Component{
         let value = '';
         
         if(target.type === 'file'){
-            value = target.files;
-            if(value){
-                this.props.getImg(value);
+            for(let i = 0; i < target.files.length; i++){
+                value = [];
+                value.push(target.files[i]);
+                if(target.type){
+                    console.log(target.files)
+                    this.props.getImg(target.files);
+                }
             }
         }
         else{
@@ -39,19 +44,19 @@ class Form extends React.Component{
     async onFormSubmit(e){
         e.preventDefault();
         try{
-        const formData = {
-            myFile: this.state.myFile,
-            myTitle: this.state.myTitle,
-            myDesc: this.state.myDesc,
-            myDate: this.state.myDate
-        }
-            const res = await CallAPI('upload', 'POST', formData, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
+            const formData = new FormData()
+            formData.append('myFile',this.state.myFile[0]);
+            formData.append('myTitle',this.state.myTitle);
+            formData.append('myDesc',this.state.myDesc);
+            formData.append('myDate', this.state.myDate)
+            
+            const jwt = JSON.parse(localStorage.getItem('token'));
+            const res = await CallAPI('picture/upload', 'POST', formData, {
+                'content-type': 'multipart/form-data',
+                Authorization: `Bearer ${jwt}`,
             });
-            this.setState({data: res.data});
-            this.props.onHandleData(this.state.data);
+            console.log(this.props)
+            this.props.getPictureFromServer(res.data);
             this.onClearForm();
             this.onCloseForm();
         }
@@ -67,17 +72,14 @@ class Form extends React.Component{
             myFile: null,
             myDate: '',
         })
-        this.text = '';
     }
 
     onCloseForm = () =>{
-        this.props.onCloseForm();
+        this.props.closeForm();
     }
 
     render(){
         const { valueTag } = this.props;
-
-
         return (
             <form className='bg-white p-5 pt-15' onSubmit={this.onFormSubmit}>
                 <div className='form-group'>
@@ -146,5 +148,23 @@ class Form extends React.Component{
         )
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        picture : state.picture,
+        valueTag : state.getValueTag
+    }
+}
 
-export default Form;
+const mapDispathToProps = (dispath) =>{
+    return {
+        getPictureFromServer: (pictures) => {
+            dispath(action.getNewPicture(pictures));
+        },
+        closeForm: ()=>{
+            dispath(action.checkClick());
+        }
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispathToProps)(Form);

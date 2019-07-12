@@ -1,47 +1,41 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Clock from './clock';
+import * as action from '../appRedux/actions/index';
+import * as actionForNavBar from '../appRedux/actions/navBar';
 
 class Navbar extends React.Component{
-    state = {
-        isShowMenu: false,
-        isHover: false
-    }
     handleClicked = (e) => {
         e.preventDefault();
-        this.props.onHandleClicked(e);
+        this.props.click();
+        this.props.getValueTag(e.target.innerText);
     }
-
+    //chưa xong
     onLogout = (e)=>{
         e.preventDefault();
         this.props.onLogout();
     }
 
     showMenu = ()=>{
-        this.setState({
-            isShowMenu: !this.state.isShowMenu
-        })
+        this.props.controllMenu();
     }
 
     mouseEnter = ()=>{
-        this.setState({
-            isHover: !this.state.isHover
-        })
+        this.props.mouseHoverInMenu();
     }
 
     mouseLeave = ()=>{
-        this.setState({
-            isHover: !this.state.isHover
-        })
+        this.props.mouseHoverInMenu();
     }
 
     render(){
-        const { isShowMenu, isHover } = this.state;
+        const { _controllMenu, _hoverMenu } = this.props;
         const classNames = [];
-        if(isShowMenu){
+        if( _controllMenu ){
             classNames.push('isactive');
             classNames.push('show-menu');
-            if(isHover){
+            if(_hoverMenu){
                 classNames.push('item-hover ')
             }
         }
@@ -88,4 +82,29 @@ class Navbar extends React.Component{
     }
 }
 
-export default Navbar;
+const mapStateToProps = (state)=>{
+    return {
+        isClicked : state.isClicked,
+        _controllMenu : state.navBar.controllMenu,
+        _hoverMenu : state.navBar.hoverMenu
+    }
+}
+
+const mapDispathToProps = (dispath) =>{
+    return {
+        click: () => {
+            dispath(action.checkClick());
+        },
+        getValueTag : (valueTag)=>{
+            dispath(action.valueTag(valueTag));
+        },
+        controllMenu : ()=>{
+            dispath(actionForNavBar.controllMenu());
+        },
+        mouseHoverInMenu : ()=>{
+            dispath(actionForNavBar.mouseHoverInMenu());
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(Navbar);

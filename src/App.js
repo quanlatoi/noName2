@@ -1,57 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import callAPI from './util/callAPI';
 import Navbar from './Component/NavBar';
 import Content from './Component/Content';
 import Form from './Component/Form';
 import PreviousFileUpload from './Component/previuosFileUpload';
+import * as action from './appRedux/actions/index';
 
 class App extends React.Component{
     constructor(props){
         super();
         this.state = {
-            pictures: [],
             isClicked : false,
             valueTag : '',
             previous: [],
-            data: []
         }
-        this.componentDidMount = this.componentDidMount.bind(this);
+        // this.componentDidMount = this.componentDidMount.bind(this);
     }
-    async componentDidMount(){
-        const jwt = JSON.parse(localStorage.getItem('token'));
-        const res = await callAPI('picture', 'GET', {}, {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json'
-        })
-        if(res.data !== false){
-            const picture =  res.data;
-            this.setState({ pictures: picture });
-        }
-        else{
-            localStorage.clear();
-            this.props.history.push('/');
-        }        
-    }
-
-    handleClick = (e) => {
-        this.setState({
-            isClicked : !this.state.isClicked,
-            valueTag : e.target.innerText
-        });
-    }
-
-    handleData = (data) => {
-        const { pictures } = this.state;
-        pictures.push(data);
-        this.setState({pictures : pictures});
-    }
-
-    onCloseForm = () => {
-        this.setState({
-            isClicked: false
-        })
-    }
+    // async componentDidMount(){
+    //     const jwt = JSON.parse(localStorage.getItem('token'));
+    //     const res = await callAPI('picture', 'GET', {}, {
+    //         Authorization: `Bearer ${jwt}`,
+    //         'Content-Type': 'application/json'
+    //     })
+    //     if(res.data !== false){
+    //         const picture =  res.data;
+    //         this.setState({ pictures: picture });
+    //     }
+    //     else{
+    //         localStorage.clear();
+    //         this.props.history.push('/');
+    //     }        
+    // }
 
     onLogout = ()=>{
         localStorage.clear();
@@ -59,7 +40,7 @@ class App extends React.Component{
     }
 
     closeModal = (e)=>{
-        this.setState({isClicked : !this.state.isClicked});
+        this.props.closeForm();
     }
 
     getImg = (value)=>{
@@ -89,12 +70,12 @@ class App extends React.Component{
     }
 
     render() {
-        const { pictures, isClicked, data,  valueTag, previous } = this.state;
+        const { valueTag, previous } = this.state;
+        const { isClicked } = this.props;
         let form, classNames = '';
         if(isClicked){
             classNames= ' show-my-modal'
-            form = <Form onHandleData = { this.handleData }
-                  onCloseForm = { this.onCloseForm }
+            form = <Form
                   valueTag = { valueTag }
                   getImg = { this.getImg }
             />            
@@ -107,7 +88,6 @@ class App extends React.Component{
             <div>
                 <div id='scroll'>
                     <Navbar 
-                        onHandleClicked= { this.handleClick }
                         onLogout = { this.onLogout }
                     />
                 </div>
@@ -115,7 +95,7 @@ class App extends React.Component{
                     <div className={`my-modal${classNames}`}>
                         <div className='wrap-content'>
                             <span className="close-hover close" onClick={this.closeModal}>&times;</span>
-                            <div className='modal-content my-modal-content' >                                
+                            <div className='modal-content my-modal-content' >
                                 <div className='d-flex flex-wrap'>
                                     <div className='col-8'>
                                         { form }
@@ -130,9 +110,7 @@ class App extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <Content 
-                        pictures= { pictures }
-                        data= { data }>
+                    <Content >
                     </Content>
                     
                 </div>
@@ -141,5 +119,18 @@ class App extends React.Component{
     }
 }
 
+const mapStateToProps = (state)=>{
+    return {
+        isClicked : state.isClicked
+    }
+}
 
-export default App;
+const mapDispathToProps = (dispath) =>{
+    return {
+        closeForm : ()=>{
+            dispath(action.checkClick());
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(App);

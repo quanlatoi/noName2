@@ -1,17 +1,30 @@
 import * as types from '../constants/actionTypes';
 
-import callAPI from '../../util/callAPI';
-
-export const listPictures = (picture)=>{
+export const listPictures = (pictures)=>{
     return {
         type: types.LIST_PICTURES,
+        pictures
+    }
+}
+
+export const getNewPicture = (picture)=>{
+    return {
+        type: types.POST_PICTURE,
         picture
     }
-    // const jwt = JSON.parse(localStorage.getItem('token'));
-    // callAPI('picture', 'GET', {}, {
-    //     Authorization: `Bearer ${jwt}`,
-    //     'Content-Type': 'application/json'
-    // }).then((res)=>{
-        
-    // })
 }
+
+export const valueTag = (valueTag)=>{
+    return {
+        type: types.VALUE_TAG,
+        valueTag
+    }
+}
+
+
+export const checkClick = ()=>{
+    return {
+        type: types.IS_CLICKED
+    }
+}
+

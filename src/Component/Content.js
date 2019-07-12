@@ -6,14 +6,15 @@ import * as action from '../appRedux/actions/index'
 import callAPI from '../util/callAPI';
 
 class Content extends React.Component{
-    async componentDidMount(){
+    componentDidMount = async ()=>{
         const jwt = JSON.parse(localStorage.getItem('token'));
         const res = await callAPI('picture', 'GET', {}, {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json'
         });
-        this.props.pictures(res.data);       
+        this.props.getPictureFromServer(res.data);
     }
+
     render(){
         let { pictures } = this.props;
         let elmItem = pictures.map(
@@ -34,16 +35,15 @@ class Content extends React.Component{
 }
 
 const mapStateToProps = (state)=>{
-    console.log(state);
     return {
-        a : state.pictures
+        pictures : state.pictures
     }
 }
 
-const mapDispathToProps = (dispath, props) =>{
+const mapDispathToProps = (dispath) =>{
     return {
-        pictures: (picture) => {
-            dispath(action.listPictures(picture));
+        getPictureFromServer: (pictures) => {
+            dispath(action.listPictures(pictures));
         }
     }
 }
