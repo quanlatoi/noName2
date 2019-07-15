@@ -10,29 +10,27 @@ import * as action from './appRedux/actions/index';
 
 class App extends React.Component{
     constructor(props){
-        super();
+        super(props);
         this.state = {
-            isClicked : false,
             valueTag : '',
             previous: [],
         }
-        // this.componentDidMount = this.componentDidMount.bind(this);
     }
-    // async componentDidMount(){
-    //     const jwt = JSON.parse(localStorage.getItem('token'));
-    //     const res = await callAPI('picture', 'GET', {}, {
-    //         Authorization: `Bearer ${jwt}`,
-    //         'Content-Type': 'application/json'
-    //     })
-    //     if(res.data !== false){
-    //         const picture =  res.data;
-    //         this.setState({ pictures: picture });
-    //     }
-    //     else{
-    //         localStorage.clear();
-    //         this.props.history.push('/');
-    //     }        
-    // }
+
+    componentDidMount = async () => {
+        const jwt = JSON.parse(localStorage.getItem('token'));
+        const res = await callAPI('picture', 'GET', {}, {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'application/json'
+        })
+        if(res.data !== false){
+            return this.props.getPictureFromServer(res.data);
+        }
+        else{
+            localStorage.clear();
+            this.props.history.push('/');
+        }        
+    }
 
     onLogout = ()=>{
         localStorage.clear();
@@ -129,6 +127,9 @@ const mapDispathToProps = (dispath) =>{
     return {
         closeForm : ()=>{
             dispath(action.checkClick());
+        },
+        getPictureFromServer: (pictures) => {
+            dispath(action.listPictures(pictures));
         }
     }
 }

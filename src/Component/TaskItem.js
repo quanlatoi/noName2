@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class TaskItem extends Component{
     render(){
-        const { picture } = this.props;
+        const { picture } = this.props;        
         return (
             <div className='mt-2 col-sm-6 col-md-6 col-lg-4 col-xl-4'>
                 <div className='card'>

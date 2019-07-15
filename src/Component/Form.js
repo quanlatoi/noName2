@@ -55,7 +55,6 @@ class Form extends React.Component{
                 'content-type': 'multipart/form-data',
                 Authorization: `Bearer ${jwt}`,
             });
-            console.log(this.props)
             this.props.getPictureFromServer(res.data);
             this.onClearForm();
             this.onCloseForm();

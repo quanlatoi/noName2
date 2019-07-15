@@ -11,7 +11,7 @@ class Navbar extends React.Component{
         this.props.click();
         this.props.getValueTag(e.target.innerText);
     }
-    //chưa xong
+    
     onLogout = (e)=>{
         e.preventDefault();
         this.props.onLogout();
